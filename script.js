@@ -44,14 +44,7 @@ const optionsToGoSides = [
     5,
     7,
 ];
-//get coordinates
-canvas.addEventListener('mouseup', (event)  => {
-/*     globalThis.X = event.clientX;
-    globalThis.Y = event.clientY; */
-    globalThis.X = event.pageX - event.target.offsetLeft,
-    globalThis.Y = event.pageY - event.target.offsetTop;
-    console.log(X +':'+ Y);
-});
+
 //markup draw
 function drawLines () {
     ctx.fillStyle = "black";
@@ -71,16 +64,6 @@ function drawZero (ImgX , ImgY) {
 //
 function firstTurn (currentTurn) {
     currentTurn = Math.round(Math.random());
-    switch (currentTurn) {
-        case 0:
-            //computer first
-            currentTurn = "computer";
-            break;
-        case 1:
-            //player first
-            currentTurn = "player";
-            break;
-    }
     return currentTurn
 }
 //computer move function
@@ -90,57 +73,63 @@ function computerMove () {
 //player move function
 function playerMove () {
     console.log('Старт хода игрока');
-    MoveWhile: while (true) {
-        //0
-        if (globalThis.X <= 128 && globalThis.Y <= 128) {
-            console.log('0');
-            if (globalThis.board[0] == 0) {globalThis.board[0] = "X";drawCross(0,0);break MoveWhile;}
-        } 
-        //1
-        else if (globalThis.X >= 128 && globalThis.X <= 256 && globalThis.Y <= 128) {
-            console.log('1');
-            if (globalThis.board[1] == 0) {globalThis.board[1] = "X";drawCross(128,0);break MoveWhile;}
-        }
-        //2
-        else if (globalThis.X >= 256 && globalThis.X <= 384 && globalThis.Y <= 128) {
-            console.log('2');
-            if (globalThis.board[2] == 0) {globalThis.board[2] = "X";drawCross(256,0);break MoveWhile;}
-        }
-        //3
-        else if (globalThis.X <= 128 && globalThis.Y >= 128 && globalThis.Y <= 256) {
-            console.log('3');
-            if (globalThis.board[3] == 0) {globalThis.board[3] = "X";drawCross(0,128);break MoveWhile;}
-        }
-        //4
-        else if (globalThis.X >= 128 && globalThis.X <= 256 && globalThis.Y >= 128 && globalThis.Y <= 256) {
-            console.log('4');
-            if (globalThis.board[4] == 0) {globalThis.board[4] = "X";drawCross(128,128);break MoveWhile;}
-        }
-        //5
-        else if (globalThis.X >= 256 && globalThis.X <= 384 && globalThis.Y >= 128 && globalThis.Y <= 256) {
-            console.log('5');
-            if (globalThis.board[5] == 0) {globalThis.board[5] = "X";drawCross(256,128);break MoveWhile;}
-        }
-        //6
-        else if (globalThis.X <= 128 && globalThis.Y >= 256 && globalThis.Y <= 384) {
-            console.log('6');
-            if (globalThis.board[6] == 0) {globalThis.board[6] = "X";drawCross(0,256);break MoveWhile;}
-        }
-        //7
-        else if (globalThis.X >= 128 && globalThis.X <= 256 && globalThis.Y >= 256 && globalThis.Y <= 384) {
-            console.log('7');
-            if (globalThis.board[7] == 0) {globalThis.board[7] = "X";drawCross(128,256);break MoveWhile;}
-        }
-        //8
-        else if (globalThis.X >= 256 && globalThis.X <= 384 && globalThis.Y >= 256 && globalThis.Y <= 384) {
-            console.log('8');
-            if (globalThis.board[8] == 0) {globalThis.board[8] = "X";drawCross(256,256);break MoveWhile;}
-        }
-        else {
-            commentator.textContent = "Вы нажали не туда!!!"
-        }
+    //get coordinates
+    canvas.addEventListener('mouseup', function playerEvent(event){
+        /*     globalThis.X = event.clientX;
+    globalThis.Y = event.clientY; */
+    globalThis.X = event.pageX - event.target.offsetLeft,
+    globalThis.Y = event.pageY - event.target.offsetTop;
+    console.log(X +':'+ Y);
+    //0
+    if (globalThis.X <= 128 && globalThis.Y <= 128) {
         console.log('0');
+        if (globalThis.board[0] == 0) {globalThis.board[0] = "X";drawCross(0,0);canvas.removeEventListener('mouseup', playerEvent);return console.log('Конец!')}
+    } 
+    //1
+    else if (globalThis.X >= 128 && globalThis.X <= 256 && globalThis.Y <= 128) {
+        console.log('1');
+        if (globalThis.board[1] == 0) {globalThis.board[1] = "X";drawCross(128,0);canvas.removeEventListener('mouseup', playerEvent);return console.log('Конец!')}
     }
+    //2
+    else if (globalThis.X >= 256 && globalThis.X <= 384 && globalThis.Y <= 128) {
+        console.log('2');
+        if (globalThis.board[2] == 0) {globalThis.board[2] = "X";drawCross(256,0);canvas.removeEventListener('mouseup', playerEvent);return console.log('Конец!')}
+    }
+    //3
+    else if (globalThis.X <= 128 && globalThis.Y >= 128 && globalThis.Y <= 256) {
+        console.log('3');
+        if (globalThis.board[3] == 0) {globalThis.board[3] = "X";drawCross(0,128);canvas.removeEventListener('mouseup', playerEvent);return console.log('Конец!')}
+    }
+    //4
+    else if (globalThis.X >= 128 && globalThis.X <= 256 && globalThis.Y >= 128 && globalThis.Y <= 256) {
+        console.log('4');
+        if (globalThis.board[4] == 0) {globalThis.board[4] = "X";drawCross(128,128);canvas.removeEventListener('mouseup', playerEvent);return console.log('Конец!')}
+    }
+    //5
+    else if (globalThis.X >= 256 && globalThis.X <= 384 && globalThis.Y >= 128 && globalThis.Y <= 256) {
+        console.log('5');
+        if (globalThis.board[5] == 0) {globalThis.board[5] = "X";drawCross(256,128);canvas.removeEventListener('mouseup', playerEvent);return console.log('Конец!')}
+    }
+    //6
+    else if (globalThis.X <= 128 && globalThis.Y >= 256 && globalThis.Y <= 384) {
+        console.log('6');
+        if (globalThis.board[6] == 0) {globalThis.board[6] = "X";drawCross(0,256);canvas.removeEventListener('mouseup', playerEvent);return console.log('Конец!')}
+    }
+    //7
+    else if (globalThis.X >= 128 && globalThis.X <= 256 && globalThis.Y >= 256 && globalThis.Y <= 384) {
+        console.log('7');
+        if (globalThis.board[7] == 0) {globalThis.board[7] = "X";drawCross(128,256);canvas.removeEventListener('mouseup', playerEvent);return console.log('Конец!')}
+    }
+    //8
+    else if (globalThis.X >= 256 && globalThis.X <= 384 && globalThis.Y >= 256 && globalThis.Y <= 384) {
+        console.log('8');
+        if (globalThis.board[8] == 0) {globalThis.board[8] = "X";drawCross(256,256);canvas.removeEventListener('mouseup', playerEvent);return console.log('Конец!')}
+    }
+    else {
+        commentator.textContent = "Вы нажали не туда!!!";
+    }
+    console.log('0');
+    });
 }
 //main
 function startGame () {
@@ -153,19 +142,44 @@ function startGame () {
         0, 0, 0,
     ];
 }
-function processGame (currentTurn) {
+function processGame () {
+    console.log('Старт обработки игры');
     if (winner) {return congratulationWinner(winner);}
-    switch (currentTurn) {
-        case "computer":
+    console.log('Старт проверки первого хода');
+    /* switch (currentTurn) {
+        case 'computer':
+            console.log('Ход компьютера');
             computerMove();
             break;
-        case "player":
+        case 'player':
+            console.log('Ход игрока');
+            playerMove();
+            break;
+        default:
+            console.log('Ход ничейный');
+            break
+    } */
+    switch (currentTurn) {
+        case 0:
+            //computer first
+            console.log('Ход компьютера');
+            computerMove();
+            break;
+        case 1:
+            //player first
+            console.log('Ход игрока');
             playerMove();
             break;
     }
 }
 function congratulationWinner (winner) {
-    commentator.textContent = "Поздравляем победителя: " + winner;
+    commentator.textContent = "Поздравляем победителя: " + winner + '\r \n';
+    commentator.textContent += "Нажмите на текст чтобы перезапустить игру";
+    commentator.addEventListener('mouseup', function restartGame(){
+        console.log('Событие нажатия');
+        commentator.textContent = "dfsdfsdf";
+        return startGame(), processGame(), commentator.removeEventListener('mouseup', restartGame);
+    });
 }
 //start main function onload
 globalThis.onload = () => {
