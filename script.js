@@ -83,53 +83,57 @@ function playerMove () {
     //0
     if (globalThis.X <= 128 && globalThis.Y <= 128) {
         console.log('0');
-        if (globalThis.board[0] == 0) {globalThis.board[0] = "X";drawCross(0,0);canvas.removeEventListener('mouseup', playerEvent);return console.log('Конец!')}
+        if (globalThis.board[0] == 0) {globalThis.board[0] = "X";drawCross(0,0);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
     } 
     //1
     else if (globalThis.X >= 128 && globalThis.X <= 256 && globalThis.Y <= 128) {
         console.log('1');
-        if (globalThis.board[1] == 0) {globalThis.board[1] = "X";drawCross(128,0);canvas.removeEventListener('mouseup', playerEvent);return console.log('Конец!')}
+        if (globalThis.board[1] == 0) {globalThis.board[1] = "X";drawCross(128,0);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
     }
     //2
     else if (globalThis.X >= 256 && globalThis.X <= 384 && globalThis.Y <= 128) {
         console.log('2');
-        if (globalThis.board[2] == 0) {globalThis.board[2] = "X";drawCross(256,0);canvas.removeEventListener('mouseup', playerEvent);return console.log('Конец!')}
+        if (globalThis.board[2] == 0) {globalThis.board[2] = "X";drawCross(256,0);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
     }
     //3
     else if (globalThis.X <= 128 && globalThis.Y >= 128 && globalThis.Y <= 256) {
         console.log('3');
-        if (globalThis.board[3] == 0) {globalThis.board[3] = "X";drawCross(0,128);canvas.removeEventListener('mouseup', playerEvent);return console.log('Конец!')}
+        if (globalThis.board[3] == 0) {globalThis.board[3] = "X";drawCross(0,128);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
     }
     //4
     else if (globalThis.X >= 128 && globalThis.X <= 256 && globalThis.Y >= 128 && globalThis.Y <= 256) {
         console.log('4');
-        if (globalThis.board[4] == 0) {globalThis.board[4] = "X";drawCross(128,128);canvas.removeEventListener('mouseup', playerEvent);return console.log('Конец!')}
+        if (globalThis.board[4] == 0) {globalThis.board[4] = "X";drawCross(128,128);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
     }
     //5
     else if (globalThis.X >= 256 && globalThis.X <= 384 && globalThis.Y >= 128 && globalThis.Y <= 256) {
         console.log('5');
-        if (globalThis.board[5] == 0) {globalThis.board[5] = "X";drawCross(256,128);canvas.removeEventListener('mouseup', playerEvent);return console.log('Конец!')}
+        if (globalThis.board[5] == 0) {globalThis.board[5] = "X";drawCross(256,128);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
     }
     //6
     else if (globalThis.X <= 128 && globalThis.Y >= 256 && globalThis.Y <= 384) {
         console.log('6');
-        if (globalThis.board[6] == 0) {globalThis.board[6] = "X";drawCross(0,256);canvas.removeEventListener('mouseup', playerEvent);return console.log('Конец!')}
+        if (globalThis.board[6] == 0) {globalThis.board[6] = "X";drawCross(0,256);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
     }
     //7
     else if (globalThis.X >= 128 && globalThis.X <= 256 && globalThis.Y >= 256 && globalThis.Y <= 384) {
         console.log('7');
-        if (globalThis.board[7] == 0) {globalThis.board[7] = "X";drawCross(128,256);canvas.removeEventListener('mouseup', playerEvent);return console.log('Конец!')}
+        if (globalThis.board[7] == 0) {globalThis.board[7] = "X";drawCross(128,256);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
     }
     //8
     else if (globalThis.X >= 256 && globalThis.X <= 384 && globalThis.Y >= 256 && globalThis.Y <= 384) {
         console.log('8');
-        if (globalThis.board[8] == 0) {globalThis.board[8] = "X";drawCross(256,256);canvas.removeEventListener('mouseup', playerEvent);return console.log('Конец!')}
+        if (globalThis.board[8] == 0) {globalThis.board[8] = "X";drawCross(256,256);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
     }
     else {
         commentator.textContent = "Вы нажали не туда!!!";
     }
     console.log('0');
     });
+}
+//check winner
+function checkWinner(winner) {
+    
 }
 //main
 function startGame () {
@@ -144,7 +148,8 @@ function startGame () {
 }
 function processGame () {
     console.log('Старт обработки игры');
-    if (winner) {return congratulationWinner(winner);}
+    checkWinner(winner);
+    if (winner) {return congratulationWinner(winner)};
     console.log('Старт проверки первого хода');
     /* switch (currentTurn) {
         case 'computer':
@@ -163,11 +168,14 @@ function processGame () {
         case 0:
             //computer first
             console.log('Ход компьютера');
+            commentator.textContent = "Ход: Компьютер";
             computerMove();
             break;
         case 1:
             //player first
             console.log('Ход игрока');
+            commentator.textContent = "Ход: Игрок" + '\n';
+            commentator.textContent += "Сделайте ход";
             playerMove();
             break;
     }
