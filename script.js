@@ -132,14 +132,62 @@ function playerMove () {
     });
 }
 //check winner
-function checkWinner(winner) {
-    
+function checkWinner() {
+    let X = [];
+    let resultX = "";
+    let resultO = "";
+    let O = [];
+    /* board.forEach((item,index) => {
+        console.log('Проверка победителя');
+        if (item) {
+            console.log('type:' + item);
+            for(let i = 0;i < board.length;i++){
+                if (board[i]== 'X'){resultX.push(i)}
+                else if (board[i]== 'O'){resultO.push(i)}
+                
+            }
+            result = String(index);
+            console.log('result1:' + result);
+            result += String(board.indexOf(type,Number(result.charAt(1))));
+            console.log('result2:' + result);
+            result += String(board.indexOf(type,Number(result.charAt(2))));
+            console.log('result3:' + result);
+            
+        }
+    }); */
+    for(let i = 0;i < board.length;i++){
+        if (board[i]== 'X'){X.push(i)}
+        else if (board[i]== 'O'){O.push(i)}
+    }
+    for(let i = 0;i < X.length;i++) {
+        resultX += String(X[i]);
+    }
+    for(let i = 0;i < O.length;i++) {
+        resultX += String(O[i]);
+    }
+    for (let i = 0;i < wayToWin.length; i++) {
+        if (resultX.includes(wayToWin[i][0]) && resultX.includes(wayToWin[i][1]) && resultX.includes(wayToWin[i][2])){winner = "Игрок"}
+        else if (resultO.includes(wayToWin[i][0]) && resultO.includes(wayToWin[i][1]) && resultO.includes(wayToWin[i][2])){winner = "Компьютер"}
+    }
+    /* while(resultO.lenght < 2 || resultX.lenght < 2) {
+        for(let i = 0;i < board.length;i++) {
+            if (board[i] == 'X'){resultX.push(i)}
+            else if (board[i] == 'O'){resultO.push(i)}
+        }
+    } */
+    console.log(X);
+    console.log(O);
+    console.log(resultX);
+    console.log(resultO);
+    console.log(winner);
+    return winner
 }
 //main
 function startGame () {
     ctx.clearRect(0, 0, 384, 384)
     drawLines();
     currentTurn = firstTurn();
+    winner = "";
     globalThis.board = [
         0, 0, 0,
         0, 0, 0,
@@ -148,7 +196,7 @@ function startGame () {
 }
 function processGame () {
     console.log('Старт обработки игры');
-    checkWinner(winner);
+    checkWinner();
     if (winner) {return congratulationWinner(winner)};
     console.log('Старт проверки первого хода');
     /* switch (currentTurn) {
