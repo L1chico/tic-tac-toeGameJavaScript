@@ -68,6 +68,28 @@ function firstTurn (currentTurn) {
 }
 //computer move function
 function computerMove () {
+    //possible move
+    let possibleMove = [];
+    for (let i = 0;i < board.length;i++) {
+        if (!board[i]) {possibleMove.push(i)}
+    }
+    console.log(possibleMove);
+    //create copy of main board
+    boardCopy = [];
+    X = [];
+    O = [];
+    for (let i = 0;i < board.length;i++) {
+        boardCopy.push(board[i])
+        if (board[i] == "X") {X.push(i)}
+        else if (board[i] == "O") {O.push(i)}
+    }
+    console.log(boardCopy);
+    console.log(X);
+    console.log(O);
+    //check if next human move winnerable
+    for (let i = 0;i < boardCopy.length;i++) {
+        
+    }
 
 }
 //player move function
