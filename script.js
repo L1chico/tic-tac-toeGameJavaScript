@@ -16,6 +16,17 @@ globalThis.board = [
     0, 0, 0,
     0, 0, 0,
 ];
+boardCoordinates = [
+    [0,0],
+    [128,0],
+    [256,0],
+    [0,128],
+    [128,128],
+    [256,128],
+    [0,256],
+    [128,256],
+    [256,256],
+];
 const wayToWin = [
     "012",
     "345",
@@ -69,6 +80,7 @@ function firstTurn (currentTurn) {
 //computer move function
 function computerMove () {
     //possible move
+    let move;
     let possibleMove = [];
     for (let i = 0;i < board.length;i++) {
         if (!board[i]) {possibleMove.push(i)}
@@ -83,14 +95,80 @@ function computerMove () {
         if (board[i] == "X") {X.push(i)}
         else if (board[i] == "O") {O.push(i)}
     }
+
     console.log(boardCopy);
     console.log(X);
     console.log(O);
-    //check if next human move winnerable
-    for (let i = 0;i < boardCopy.length;i++) {
-        
-    }
+    X = X.join();
+    O = O.join();
+    //check if next computer move winnerable
+    for (let i = 0;i < wayToWin.length;i++) {
+        /* switch(X.includes(wayToWin[i][0]) && X.includes(wayToWin[i][1]) || X.includes(wayToWin[i][0]) && X.includes(wayToWin[i][2]) || X.includes(wayToWin[i][1]) && X.includes(wayToWin[i][2])) {
+            case true:
 
+        } */
+        console.log(O.includes(wayToWin[i][0]) && O.includes(wayToWin[i][1]));
+        switch(true) {
+            case O.includes(wayToWin[i][0]) && O.includes(wayToWin[i][1]):
+                move = Number(wayToWin[i][2]);
+                if (globalThis.board[move] == 0) {globalThis.board[move] = "O";drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);currentTurn = 1;return console.log('Ход:' + move),currentTurn,processGame()};
+                break
+            case O.includes(wayToWin[i][0]) && O.includes(wayToWin[i][2]):
+                move = Number(wayToWin[i][1]);
+                if (globalThis.board[move] == 0) {globalThis.board[move] = "O";drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);currentTurn = 1;return console.log('Ход:' + move),currentTurn,processGame()};
+                break
+            case O.includes(wayToWin[i][1]) && O.includes(wayToWin[i][2]):
+                move = Number(wayToWin[i][0]);
+                if (globalThis.board[move] == 0) {globalThis.board[move] = "O";drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);currentTurn = 1;return console.log('Ход:' + move),currentTurn,processGame()};
+                break
+        }
+    }
+    //check if next human move winnerable
+    for (let i = 0;i < wayToWin.length;i++) {
+        /* switch(X.includes(wayToWin[i][0]) && X.includes(wayToWin[i][1]) || X.includes(wayToWin[i][0]) && X.includes(wayToWin[i][2]) || X.includes(wayToWin[i][1]) && X.includes(wayToWin[i][2])) {
+            case true:
+
+        } */
+        console.log(X.includes(wayToWin[i][0]) && X.includes(wayToWin[i][1]));
+        switch(true) {
+            case X.includes(wayToWin[i][0]) && X.includes(wayToWin[i][1]):
+                move = Number(wayToWin[i][2]);
+                if (globalThis.board[move] == 0) {globalThis.board[move] = "O";drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);currentTurn = 1;return console.log('Ход:' + move),currentTurn,processGame()};
+                break
+            case X.includes(wayToWin[i][0]) && X.includes(wayToWin[i][2]):
+                move = Number(wayToWin[i][1]);
+                if (globalThis.board[move] == 0) {globalThis.board[move] = "O";drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);currentTurn = 1;return console.log('Ход:' + move),currentTurn,processGame()};
+                break
+            case X.includes(wayToWin[i][1]) && X.includes(wayToWin[i][2]):
+                move = Number(wayToWin[i][0]);
+                if (globalThis.board[move] == 0) {globalThis.board[move] = "O";drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);currentTurn = 1;return console.log('Ход:' + move),currentTurn,processGame()};
+                break
+        }
+    }
+    //if next move not winnerable
+    function checkBoardCorners() {
+        for (let i = 0;i < optionsToGoCorners.length;i++) {
+            if(possibleMove.includes(optionsToGoCorners[i])) {move = optionsToGoCorners[i]; return true}
+        }
+    }
+    function checkBoardSides() {
+        for (let i = 0;i < optionsToGoSides.length;i++) {
+            if(possibleMove.includes(optionsToGoSides[i])) {move = optionsToGoSides[i]; return true}
+        }
+    }
+    switch(true) {
+        case possibleMove.includes(optionsToGoMiddle):
+            globalThis.board[optionsToGoMiddle] = "O";drawZero(boardCoordinates[optionsToGoMiddle][0],boardCoordinates[optionsToGoMiddle][1]);currentTurn = 1;return console.log('Ход:' + optionsToGoMiddle),currentTurn,processGame();
+            break
+        case checkBoardCorners():
+            globalThis.board[move] = "O";drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);currentTurn = 1;return console.log('Ход:' + move),currentTurn,processGame();
+            break
+        case checkBoardSides():
+            globalThis.board[move] = "O";drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);currentTurn = 1;return console.log('Ход:' + move),currentTurn,processGame();
+            break
+
+            
+    }
 }
 //player move function
 function playerMove () {
@@ -155,6 +233,7 @@ function playerMove () {
 }
 //check winner
 function checkWinner() {
+    console.log('Проверка победителя');
     let X = [];
     let resultX = "";
     let resultO = "";
@@ -177,6 +256,8 @@ function checkWinner() {
             
         }
     }); */
+    //if board do not have 0
+    if (!board.includes(0)){winner = "Ничья"}
     for(let i = 0;i < board.length;i++){
         if (board[i]== 'X'){X.push(i)}
         else if (board[i]== 'O'){O.push(i)}
@@ -185,7 +266,7 @@ function checkWinner() {
         resultX += String(X[i]);
     }
     for(let i = 0;i < O.length;i++) {
-        resultX += String(O[i]);
+        resultO += String(O[i]);
     }
     for (let i = 0;i < wayToWin.length; i++) {
         if (resultX.includes(wayToWin[i][0]) && resultX.includes(wayToWin[i][1]) && resultX.includes(wayToWin[i][2])){winner = "Игрок"}
@@ -219,7 +300,15 @@ function startGame () {
 function processGame () {
     console.log('Старт обработки игры');
     checkWinner();
-    if (winner) {return congratulationWinner(winner)};
+    /* if (winner) {return congratulationWinner(winner)}; */
+    switch(winner) {
+        case "Игрок", "Компьютер":
+            return congratulationWinner(winner);
+            break
+        case "Ничья":
+            return tieWinner();
+            break
+    }
     console.log('Старт проверки первого хода');
     /* switch (currentTurn) {
         case 'computer':
@@ -236,13 +325,13 @@ function processGame () {
     } */
     switch (currentTurn) {
         case 0:
-            //computer first
+            //computer turn
             console.log('Ход компьютера');
             commentator.textContent = "Ход: Компьютер";
             computerMove();
             break;
         case 1:
-            //player first
+            //player turn
             console.log('Ход игрока');
             commentator.textContent = "Ход: Игрок" + '\n';
             commentator.textContent += "Сделайте ход";
@@ -252,6 +341,15 @@ function processGame () {
 }
 function congratulationWinner (winner) {
     commentator.textContent = "Поздравляем победителя: " + winner + '\r \n';
+    commentator.textContent += "Нажмите на текст чтобы перезапустить игру";
+    commentator.addEventListener('mouseup', function restartGame(){
+        console.log('Событие нажатия');
+        commentator.textContent = "dfsdfsdf";
+        return startGame(), processGame(), commentator.removeEventListener('mouseup', restartGame);
+    });
+}
+function tieWinner () {
+    commentator.textContent = "Ничья" + '\r \n';
     commentator.textContent += "Нажмите на текст чтобы перезапустить игру";
     commentator.addEventListener('mouseup', function restartGame(){
         console.log('Событие нажатия');
