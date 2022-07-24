@@ -302,12 +302,12 @@ function processGame () {
     checkWinner();
     /* if (winner) {return congratulationWinner(winner)}; */
     switch(winner) {
-        case "Игрок", "Компьютер":
+        case "Игрок":
             return congratulationWinner(winner);
-            break
+        case "Компьютер":
+            return congratulationWinner(winner);
         case "Ничья":
             return tieWinner();
-            break
     }
     console.log('Старт проверки первого хода');
     /* switch (currentTurn) {
