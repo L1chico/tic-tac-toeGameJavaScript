@@ -11,7 +11,7 @@ zeroImg.src = "icons/zero.png";
 
 let currentTurn;
 let winner;
-globalThis.board = [
+board = [
     0, 0, 0,
     0, 0, 0,
     0, 0, 0,
@@ -36,11 +36,6 @@ const wayToWin = [
     "036",
     "147",
     "258",
-];
-const optionsToGo = [
-    0, 1, 2,
-    3, 4, 5,
-    6, 7, 8,
 ];
 const optionsToGoMiddle = 4;
 const optionsToGoCorners = [
@@ -103,49 +98,75 @@ function computerMove () {
     O = O.join();
     //check if next computer move winnerable
     for (let i = 0;i < wayToWin.length;i++) {
-        /* switch(X.includes(wayToWin[i][0]) && X.includes(wayToWin[i][1]) || X.includes(wayToWin[i][0]) && X.includes(wayToWin[i][2]) || X.includes(wayToWin[i][1]) && X.includes(wayToWin[i][2])) {
-            case true:
-
-        } */
-        console.log(O.includes(wayToWin[i][0]) && O.includes(wayToWin[i][1]));
         switch(true) {
             case O.includes(wayToWin[i][0]) && O.includes(wayToWin[i][1]):
                 move = Number(wayToWin[i][2]);
-                if (globalThis.board[move] == 0) {globalThis.board[move] = "O";drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);currentTurn = 1;return console.log('Ход:' + move),currentTurn,processGame()};
+                if (board[move] == 0) {board[move] = "O";drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);currentTurn = 1;return console.log('Ход:' + move),currentTurn,processGame()};
                 break
             case O.includes(wayToWin[i][0]) && O.includes(wayToWin[i][2]):
                 move = Number(wayToWin[i][1]);
-                if (globalThis.board[move] == 0) {globalThis.board[move] = "O";drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);currentTurn = 1;return console.log('Ход:' + move),currentTurn,processGame()};
+                if (board[move] == 0) {board[move] = "O";drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);currentTurn = 1;return console.log('Ход:' + move),currentTurn,processGame()};
                 break
             case O.includes(wayToWin[i][1]) && O.includes(wayToWin[i][2]):
                 move = Number(wayToWin[i][0]);
-                if (globalThis.board[move] == 0) {globalThis.board[move] = "O";drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);currentTurn = 1;return console.log('Ход:' + move),currentTurn,processGame()};
+                if (board[move] == 0) {board[move] = "O";drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);currentTurn = 1;return console.log('Ход:' + move),currentTurn,processGame()};
                 break
         }
     }
     //check if next human move winnerable
     for (let i = 0;i < wayToWin.length;i++) {
-        /* switch(X.includes(wayToWin[i][0]) && X.includes(wayToWin[i][1]) || X.includes(wayToWin[i][0]) && X.includes(wayToWin[i][2]) || X.includes(wayToWin[i][1]) && X.includes(wayToWin[i][2])) {
-            case true:
-
-        } */
-        console.log(X.includes(wayToWin[i][0]) && X.includes(wayToWin[i][1]));
         switch(true) {
             case X.includes(wayToWin[i][0]) && X.includes(wayToWin[i][1]):
                 move = Number(wayToWin[i][2]);
-                if (globalThis.board[move] == 0) {globalThis.board[move] = "O";drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);currentTurn = 1;return console.log('Ход:' + move),currentTurn,processGame()};
+                if (board[move] == 0) {board[move] = "O";drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);currentTurn = 1;return console.log('Ход:' + move),currentTurn,processGame()};
                 break
             case X.includes(wayToWin[i][0]) && X.includes(wayToWin[i][2]):
                 move = Number(wayToWin[i][1]);
-                if (globalThis.board[move] == 0) {globalThis.board[move] = "O";drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);currentTurn = 1;return console.log('Ход:' + move),currentTurn,processGame()};
+                if (board[move] == 0) {board[move] = "O";drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);currentTurn = 1;return console.log('Ход:' + move),currentTurn,processGame()};
                 break
             case X.includes(wayToWin[i][1]) && X.includes(wayToWin[i][2]):
                 move = Number(wayToWin[i][0]);
-                if (globalThis.board[move] == 0) {globalThis.board[move] = "O";drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);currentTurn = 1;return console.log('Ход:' + move),currentTurn,processGame()};
+                if (board[move] == 0) {board[move] = "O";drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);currentTurn = 1;return console.log('Ход:' + move),currentTurn,processGame()};
                 break
         }
     }
     //if next move not winnerable
+    //response to the player move
+    if(X.length == 1){
+        for (let i = 0;i < optionsToGoCorners.length;i++) {
+            console.log(possibleMove.includes(optionsToGoCorners[i])+ "1111");
+            console.log(X.includes(optionsToGoCorners[i])+"2222");
+            console.log(optionsToGoCorners[i]+"//3333");
+            if (X.includes(optionsToGoCorners[i])/* possibleMove.includes(optionsToGoCorners[i]) */) {
+                switch(true) {
+                    case optionsToGoCorners[i] == 0:
+                        move = 2;
+                        board[move] = "O";
+                        drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);
+                        currentTurn = 1;
+                        return console.log('Ход:' + move),currentTurn,processGame();
+                    case optionsToGoCorners[i] == 2:
+                        move = 8;
+                        board[move] = "O";
+                        drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);
+                        currentTurn = 1;
+                        return console.log('Ход:' + move),currentTurn,processGame();
+                    case optionsToGoCorners[i] == 6:
+                        move = 0;
+                        board[move] = "O";
+                        drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);
+                        currentTurn = 1;
+                        return console.log('Ход:' + move),currentTurn,processGame();
+                    case optionsToGoCorners[i] == 8:
+                        move = 6;
+                        board[move] = "O";
+                        drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);
+                        currentTurn = 1;
+                        return console.log('Ход:' + move),currentTurn,processGame();
+                }
+            }
+        }
+    }
     function checkBoardCorners() {
         for (let i = 0;i < optionsToGoCorners.length;i++) {
             if(possibleMove.includes(optionsToGoCorners[i])) {move = optionsToGoCorners[i]; return true}
@@ -158,16 +179,11 @@ function computerMove () {
     }
     switch(true) {
         case possibleMove.includes(optionsToGoMiddle):
-            globalThis.board[optionsToGoMiddle] = "O";drawZero(boardCoordinates[optionsToGoMiddle][0],boardCoordinates[optionsToGoMiddle][1]);currentTurn = 1;return console.log('Ход:' + optionsToGoMiddle),currentTurn,processGame();
-            break
+            board[optionsToGoMiddle] = "O";drawZero(boardCoordinates[optionsToGoMiddle][0],boardCoordinates[optionsToGoMiddle][1]);currentTurn = 1;return console.log('Ход:' + optionsToGoMiddle),currentTurn,processGame();
         case checkBoardCorners():
-            globalThis.board[move] = "O";drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);currentTurn = 1;return console.log('Ход:' + move),currentTurn,processGame();
-            break
+            board[move] = "O";drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);currentTurn = 1;return console.log('Ход:' + move),currentTurn,processGame();
         case checkBoardSides():
-            globalThis.board[move] = "O";drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);currentTurn = 1;return console.log('Ход:' + move),currentTurn,processGame();
-            break
-
-            
+            board[move] = "O";drawZero(boardCoordinates[move][0],boardCoordinates[move][1]);currentTurn = 1;return console.log('Ход:' + move),currentTurn,processGame();
     }
 }
 //player move function
@@ -175,62 +191,60 @@ function playerMove () {
     console.log('Старт хода игрока');
     //get coordinates
     canvas.addEventListener('mouseup', function playerEvent(event){
-        /*     globalThis.X = event.clientX;
-    globalThis.Y = event.clientY; */
-    globalThis.X = event.pageX - event.target.offsetLeft,
-    globalThis.Y = event.pageY - event.target.offsetTop;
+    X = event.pageX - event.target.offsetLeft,
+    Y = event.pageY - event.target.offsetTop;
     console.log(X +':'+ Y);
-    //0
-    if (globalThis.X <= 128 && globalThis.Y <= 128) {
-        console.log('0');
-        if (globalThis.board[0] == 0) {globalThis.board[0] = "X";drawCross(0,0);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
-    } 
-    //1
-    else if (globalThis.X >= 128 && globalThis.X <= 256 && globalThis.Y <= 128) {
-        console.log('1');
-        if (globalThis.board[1] == 0) {globalThis.board[1] = "X";drawCross(128,0);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
+    switch(true) {
+        //0
+        case X <= 128 && Y <= 128:
+            console.log('0');
+            if (board[0] == 0) {board[0] = "X";drawCross(0,0);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
+            break
+        //1
+        case X >= 128 && X <= 256 && Y <= 128:
+            console.log('1');
+            if (board[1] == 0) {board[1] = "X";drawCross(128,0);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
+            break
+        //2
+        case X >= 256 && X <= 384 && Y <= 128:
+            console.log('2');
+            if (board[2] == 0) {board[2] = "X";drawCross(256,0);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
+            break
+        //3
+        case X <= 128 && Y >= 128 && Y <= 256:
+            console.log('3');
+            if (board[3] == 0) {board[3] = "X";drawCross(0,128);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
+            break
+        //4
+        case X >= 128 && X <= 256 && Y >= 128 && Y <= 256:
+            console.log('4');
+            if (board[4] == 0) {board[4] = "X";drawCross(128,128);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
+            break
+        //5
+        case X >= 256 && X <= 384 && Y >= 128 && Y <= 256:
+            console.log('5');
+            if (board[5] == 0) {board[5] = "X";drawCross(256,128);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
+            break
+        //6
+        case X <= 128 && Y >= 256 && Y <= 384:
+            console.log('6');
+            if (board[6] == 0) {board[6] = "X";drawCross(0,256);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
+            break
+        //7
+        case X >= 128 && X <= 256 && Y >= 256 && Y <= 384:
+            console.log('7');
+            if (board[7] == 0) {board[7] = "X";drawCross(128,256);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
+            break
+        //8
+        case X >= 256 && X <= 384 && Y >= 256 && Y <= 384:
+            console.log('8');
+            if (board[8] == 0) {board[8] = "X";drawCross(256,256);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
+            break
+        default:
+            commentator.textContent = "Вы нажали не туда!!!";
+            break
     }
-    //2
-    else if (globalThis.X >= 256 && globalThis.X <= 384 && globalThis.Y <= 128) {
-        console.log('2');
-        if (globalThis.board[2] == 0) {globalThis.board[2] = "X";drawCross(256,0);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
-    }
-    //3
-    else if (globalThis.X <= 128 && globalThis.Y >= 128 && globalThis.Y <= 256) {
-        console.log('3');
-        if (globalThis.board[3] == 0) {globalThis.board[3] = "X";drawCross(0,128);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
-    }
-    //4
-    else if (globalThis.X >= 128 && globalThis.X <= 256 && globalThis.Y >= 128 && globalThis.Y <= 256) {
-        console.log('4');
-        if (globalThis.board[4] == 0) {globalThis.board[4] = "X";drawCross(128,128);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
-    }
-    //5
-    else if (globalThis.X >= 256 && globalThis.X <= 384 && globalThis.Y >= 128 && globalThis.Y <= 256) {
-        console.log('5');
-        if (globalThis.board[5] == 0) {globalThis.board[5] = "X";drawCross(256,128);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
-    }
-    //6
-    else if (globalThis.X <= 128 && globalThis.Y >= 256 && globalThis.Y <= 384) {
-        console.log('6');
-        if (globalThis.board[6] == 0) {globalThis.board[6] = "X";drawCross(0,256);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
-    }
-    //7
-    else if (globalThis.X >= 128 && globalThis.X <= 256 && globalThis.Y >= 256 && globalThis.Y <= 384) {
-        console.log('7');
-        if (globalThis.board[7] == 0) {globalThis.board[7] = "X";drawCross(128,256);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
-    }
-    //8
-    else if (globalThis.X >= 256 && globalThis.X <= 384 && globalThis.Y >= 256 && globalThis.Y <= 384) {
-        console.log('8');
-        if (globalThis.board[8] == 0) {globalThis.board[8] = "X";drawCross(256,256);canvas.removeEventListener('mouseup', playerEvent);currentTurn = 0;return console.log('Конец хода игрока'),currentTurn,processGame()}
-    }
-    else {
-        commentator.textContent = "Вы нажали не туда!!!";
-    }
-    console.log('0');
-    });
-}
+})}
 //check winner
 function checkWinner() {
     console.log('Проверка победителя');
@@ -238,24 +252,6 @@ function checkWinner() {
     let resultX = "";
     let resultO = "";
     let O = [];
-    /* board.forEach((item,index) => {
-        console.log('Проверка победителя');
-        if (item) {
-            console.log('type:' + item);
-            for(let i = 0;i < board.length;i++){
-                if (board[i]== 'X'){resultX.push(i)}
-                else if (board[i]== 'O'){resultO.push(i)}
-                
-            }
-            result = String(index);
-            console.log('result1:' + result);
-            result += String(board.indexOf(type,Number(result.charAt(1))));
-            console.log('result2:' + result);
-            result += String(board.indexOf(type,Number(result.charAt(2))));
-            console.log('result3:' + result);
-            
-        }
-    }); */
     //if board do not have 0
     if (!board.includes(0)){winner = "Ничья"}
     for(let i = 0;i < board.length;i++){
@@ -272,12 +268,6 @@ function checkWinner() {
         if (resultX.includes(wayToWin[i][0]) && resultX.includes(wayToWin[i][1]) && resultX.includes(wayToWin[i][2])){winner = "Игрок"}
         else if (resultO.includes(wayToWin[i][0]) && resultO.includes(wayToWin[i][1]) && resultO.includes(wayToWin[i][2])){winner = "Компьютер"}
     }
-    /* while(resultO.lenght < 2 || resultX.lenght < 2) {
-        for(let i = 0;i < board.length;i++) {
-            if (board[i] == 'X'){resultX.push(i)}
-            else if (board[i] == 'O'){resultO.push(i)}
-        }
-    } */
     console.log(X);
     console.log(O);
     console.log(resultX);
@@ -291,7 +281,7 @@ function startGame () {
     drawLines();
     currentTurn = firstTurn();
     winner = "";
-    globalThis.board = [
+    board = [
         0, 0, 0,
         0, 0, 0,
         0, 0, 0,
@@ -300,7 +290,6 @@ function startGame () {
 function processGame () {
     console.log('Старт обработки игры');
     checkWinner();
-    /* if (winner) {return congratulationWinner(winner)}; */
     switch(winner) {
         case "Игрок":
             return congratulationWinner(winner);
@@ -310,19 +299,6 @@ function processGame () {
             return tieWinner();
     }
     console.log('Старт проверки первого хода');
-    /* switch (currentTurn) {
-        case 'computer':
-            console.log('Ход компьютера');
-            computerMove();
-            break;
-        case 'player':
-            console.log('Ход игрока');
-            playerMove();
-            break;
-        default:
-            console.log('Ход ничейный');
-            break
-    } */
     switch (currentTurn) {
         case 0:
             //computer turn
